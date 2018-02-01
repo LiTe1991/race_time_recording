@@ -5,6 +5,9 @@
  */
 package race_time_recording;
 
+import race_time_recording.controller.MainMenuController;
+import race_time_recording.view.MainMenuFrame;
+
 /**
  *
  * @author LiTeM
@@ -15,7 +18,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MainMenuController mainMenuController = new MainMenuController(new MainMenuFrame());
+        mainMenuController.initFrame();
     }
-    
 }
