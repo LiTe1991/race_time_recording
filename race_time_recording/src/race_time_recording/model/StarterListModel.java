@@ -17,14 +17,14 @@ import javax.swing.AbstractListModel;
  */
 public class StarterListModel extends AbstractListModel {
 
-    private List<String> starter = new LinkedList<>();
+    private List<Starter> starter = new LinkedList<>();
 
     public StarterListModel() {
         try {
             ConfigLoader configLoader = new ConfigLoader();
             ArrayList<String> list = configLoader.loadStarter();
             for (String l : list) {
-                starter.add(l);
+                starter.add(new Starter(l, 0));
             }
         } catch (IOException ex) {
             System.out.println("ERROR: Starter laden fehlgeschlagen!");
@@ -41,4 +41,7 @@ public class StarterListModel extends AbstractListModel {
         return starter.get(index);
     }
 
+    public List<Starter> getList() {
+        return starter;
+    }
 }

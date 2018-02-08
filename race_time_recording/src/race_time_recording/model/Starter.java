@@ -11,6 +11,12 @@ package race_time_recording.model;
  */
 public class Starter {
     private String name;
+    private int numberRounds;
+    
+    public Starter(String name, int numberRounds) {
+        this.name = name;
+        this.numberRounds = numberRounds;
+    }
     
     public void setName(String name){
         this.name = name;
@@ -18,5 +24,13 @@ public class Starter {
     
     public String getName(){
         return this.name;
+    }
+
+    public int getNumberRounds() {
+        return numberRounds;
+    }
+
+    public void setNumberRounds(int numberRounds) {
+        this.numberRounds = numberRounds;
     }
 }
