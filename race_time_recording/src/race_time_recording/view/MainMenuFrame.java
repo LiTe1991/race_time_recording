@@ -31,6 +31,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -46,6 +47,9 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
         jButton2.setText("jButton2");
         jPanel1.add(jButton2);
+
+        jButton3.setText("jButton3 TEST");
+        jPanel1.add(jButton3);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -90,6 +94,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
