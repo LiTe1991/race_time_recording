@@ -19,11 +19,15 @@ public class StarterListModel extends AbstractListModel {
 
     private List<String> starter = new LinkedList<>();
 
-    public StarterListModel() throws IOException {
-        ConfigLoader configLoader = new ConfigLoader();
-        ArrayList<String> list = configLoader.loadStarter();
-        for (String l : list) {
-            starter.add(l);
+    public StarterListModel() {
+        try {
+            ConfigLoader configLoader = new ConfigLoader();
+            ArrayList<String> list = configLoader.loadStarter();
+            for (String l : list) {
+                starter.add(l);
+            }
+        } catch (IOException ex) {
+            System.out.println("ERROR: Starter laden fehlgeschlagen!");
         }
     }
 
