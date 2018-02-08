@@ -13,8 +13,14 @@ public class Starter {
 
     private String name;
     private long roundTimes[];
-
-    public void setName(String name) {
+    private int numberRounds;
+    
+    public Starter(String name, int numberRounds) {
+        this.name = name;
+        this.numberRounds = numberRounds;
+    }
+    
+    public void setName(String name){
         this.name = name;
     }
 
@@ -32,5 +38,13 @@ public class Starter {
 
     public long getRoundTime(int index) {
         return roundTimes[index];
+    }
+
+    public int getNumberRounds() {
+        return numberRounds;
+    }
+
+    public void setNumberRounds(int numberRounds) {
+        this.numberRounds = numberRounds;
     }
 }
