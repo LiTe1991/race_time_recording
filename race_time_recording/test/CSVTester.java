@@ -43,9 +43,9 @@ public class CSVTester {
     @Test
     public void exportTest() {
         List<Starter> list = new ArrayList<>();
-        list.add(new Starter("Vadim", 3));
-        list.add(new Starter("Chris", 3));
-        list.add(new Starter("Fabi", 0));
+        //list.add(new Starter("Vadim", 3));
+        //list.add(new Starter("Chris", 3));
+        //list.add(new Starter("Fabi", 0));
         
         CSVManager exporter = new CSVManager();
         boolean result = exporter.writeCSV(list);

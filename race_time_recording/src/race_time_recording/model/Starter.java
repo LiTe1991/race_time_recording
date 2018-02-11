@@ -5,46 +5,82 @@
  */
 package race_time_recording.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author c4sti3l
  */
 public class Starter {
 
+    private int starterPosition;
     private String name;
-    private long roundTimes[];
-    private int numberRounds;
-    
-    public Starter(String name, int numberRounds) {
+    private List<Round> rounds;
+
+    /**
+     * Erstellt ein neues Starter Objekt
+     *
+     * @param starterPosition Die Position in der Starterreihenfolge als int
+     * @param name Der Name des Starters als String
+     */
+    public Starter(int starterPosition, String name) {
+        this.starterPosition = starterPosition;
         this.name = name;
-        this.numberRounds = numberRounds;
-    }
-    
-    public void setName(String name){
-        this.name = name;
+        rounds = new ArrayList<>();
     }
 
+    /**
+     * Liefert die Startposition des Starters zurück
+     *
+     * @return int
+     */
+    public int getStarterPosition() {
+        return starterPosition;
+    }
+
+    /**
+     * Setzt die Startposition des Starters
+     *
+     * @param starterPosition Die Startposition als int
+     */
+    public void setStarterPosition(int starterPosition) {
+        this.starterPosition = starterPosition;
+    }
+
+    /**
+     * Liefert den Namen des Startes zurück
+     *
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
-    public void setRoundTime(int index, long time) {
-        roundTimes[index] = time;
+    /**
+     * Setzt den Namen des Starters
+     *
+     * @param name Der Name als String
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public long[] getRoundTimeArray() {
-        return roundTimes;
+    /**
+     * Liefert die Liste mit den gefahrenen Runden zurück
+     *
+     * @return List
+     */
+    public List<Round> getRounds() {
+        return rounds;
     }
 
-    public long getRoundTime(int index) {
-        return roundTimes[index];
-    }
-
-    public int getNumberRounds() {
-        return numberRounds;
-    }
-
-    public void setNumberRounds(int numberRounds) {
-        this.numberRounds = numberRounds;
+    /**
+     * Setzt die Liste mit den gefahrenen Runden des Starters
+     *
+     * @param rounds Die Liste mit den Runden als List
+     */
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
     }
 }

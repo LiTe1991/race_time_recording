@@ -41,7 +41,7 @@ public class CSVManager {
             for (Starter starter : list) {
                 List<String> _tempList = new ArrayList();
                 _tempList.add(starter.getName());
-                _tempList.add(String.valueOf(starter.getNumberRounds()));
+                //_tempList.add(String.valueOf(starter.getNumberRounds()));
                 
                 csvPrinter.printRecord(_tempList);
             }

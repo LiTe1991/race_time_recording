@@ -24,7 +24,7 @@ public class StarterListModel extends AbstractListModel {
             ConfigLoader configLoader = new ConfigLoader();
             ArrayList<String> list = configLoader.loadStarter();
             for (String l : list) {
-                starter.add(new Starter(l, 0));
+                starter.add(new Starter(0, l));
             }
         } catch (IOException ex) {
             System.out.println("ERROR: Starter laden fehlgeschlagen!");
