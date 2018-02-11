@@ -18,7 +18,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainMenuController mainMenuController = new MainMenuController(new MainMenuFrame());
+        MainMenuController mainMenuController = new MainMenuController();
         mainMenuController.initFrame();
     }
 }
