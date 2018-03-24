@@ -5,8 +5,8 @@
  */
 package race_time_recording.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -16,7 +16,9 @@ public class Starter {
 
     private int starterPosition;
     private String name;
-    private List<Round> rounds;
+    private ArrayList<Long> times;
+    private int pylons;
+    private int gates;
 
     /**
      * Erstellt ein neues Starter Objekt
@@ -27,7 +29,49 @@ public class Starter {
     public Starter(int starterPosition, String name) {
         this.starterPosition = starterPosition;
         this.name = name;
-        rounds = new ArrayList<>();
+        times = new ArrayList<>();
+        pylons = 0;
+        gates = 0;
+    }
+
+    /**
+     * Formatiert die Rundenzeit zum Format mm:ss.SSS und liefert diese danach
+     * zurück, falls es keien Zeit für die Runde gibt wird ein Empty String
+     * zurück geliefert
+     *
+     * @param round Die Runde von welcher die Zeit formatiert werden soll
+     *
+     * @return String
+     */
+    public String getFormattedTime(int round) {
+        if (times.size() >= round) {
+            SimpleDateFormat tempFormater = new SimpleDateFormat("mm:ss.SSS");
+            return tempFormater.format(times.get((round - 1)));
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Wertet anhand der Anzahl von Pylonen und Toren aus, wie viel Strafzeit
+     * draufzurechnen ist. Danach wird diese Strafzeit auf die gefahre Zeit
+     * draufgerechnet, formatiert und zurück geliefert. Folgendes Format wird
+     * zum formatieren verwendet mm:ss.SSS
+     *
+     * Für die Strafsekunden pro Pylone und Tor werden zur Zeit noch Mockobjekte
+     * verwendet
+     *
+     * @return String
+     */
+    public String getEvaluatedTime() {       
+        long tempPenaltyTimePylone = ConfigLoader.getInstance().getPenaltyTimePylone();
+        long tempPenaltyTimeGate = ConfigLoader.getInstance().getPenaltyTimeGate();
+        
+        //long evaluatedTime -> times.forEach((Long time) -> {evaluatedTime += time});
+
+        SimpleDateFormat tempFormater = new SimpleDateFormat("mm:ss.SSS");
+        //return tempFormater.format(evaluatedTime);
+        return "";
     }
 
     /**
@@ -67,20 +111,74 @@ public class Starter {
     }
 
     /**
-     * Liefert die Liste mit den gefahrenen Runden zurück
+     * Liefert eine Liste mit allen Rundenzeiten zurück
      *
-     * @return List
+     * @return ArrayList
      */
-    public List<Round> getRounds() {
-        return rounds;
+    public ArrayList<Long> getTimes() {
+        return times;
     }
 
     /**
-     * Setzt die Liste mit den gefahrenen Runden des Starters
+     * Setzt die Liste mit allen Rundenzeiten
      *
-     * @param rounds Die Liste mit den Runden als List
+     * @param times Die Liste mit den Rundenzeiten als ArrayList
      */
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
+    public void setTimes(ArrayList<Long> times) {
+        this.times = times;
+    }
+
+    /**
+     * Liefert die Anzahl an umgefahrenen Pylonen
+     *
+     * @return int
+     */
+    public int getPylons() {
+        return pylons;
+    }
+
+    /**
+     * Setzt die Anzahl an umgefahrenen Pylonen.
+     *
+     * @param pylons Die Anzahl der Pylonen als int
+     */
+    public void setPylons(int pylons) {
+        this.pylons = pylons;
+    }
+
+    /**
+     * Fügt die übergebene Anzahl an Pylonen zu den bestehenden hinzu
+     * 
+     * @param pylons Die Anzahl der zu hinzufügenden Pylonen als int
+     */
+    public void addPylons(int pylons) {
+        this.pylons += pylons;
+    }
+    
+    /**
+     * Liefert die Anzahl an verpassten Toren
+     *
+     * @return int
+     */
+    public int getGates() {
+        return gates;
+    }
+
+    /**
+     * Setzt die Anzahl an verpassten Toren
+     *
+     * @param gates Die Anzahl der Tore als int
+     */
+    public void setGates(int gates) {
+        this.gates = gates;
+    }
+    
+    /**
+     * Fügt die übergebene Anzahl an Toren zu den bestehenden hinzu
+     * 
+     * @param gates Die Anzahl der zu hinzufügenden Tore als int
+     */
+    public void addGates(int gates) {
+        this.gates += gates;
     }
 }

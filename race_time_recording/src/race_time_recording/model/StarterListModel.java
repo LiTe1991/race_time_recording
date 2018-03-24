@@ -5,8 +5,6 @@
  */
 package race_time_recording.model;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -20,7 +18,7 @@ public class StarterListModel extends AbstractListModel {
     private List<Starter> starter = new LinkedList<>();
 
     public StarterListModel() {
-        try {
+        /*try {
             ConfigLoader configLoader = new ConfigLoader();
             ArrayList<String> list = configLoader.loadStarter();
             for (String l : list) {
@@ -28,7 +26,7 @@ public class StarterListModel extends AbstractListModel {
             }
         } catch (IOException ex) {
             System.out.println("ERROR: Starter laden fehlgeschlagen!");
-        }
+        }*/
     }
 
     @Override
