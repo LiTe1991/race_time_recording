@@ -7,17 +7,17 @@ package race_time_recording.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.AbstractListModel;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author c4sti3l
  */
-public class StarterListModel extends AbstractListModel {
+public class StarterTableModel extends AbstractTableModel {
 
     private List<Starter> starter = new LinkedList<>();
 
-    public StarterListModel() {
+    public StarterTableModel() {
         /*try {
             ConfigLoader configLoader = new ConfigLoader();
             ArrayList<String> list = configLoader.loadStarter();
@@ -30,15 +30,20 @@ public class StarterListModel extends AbstractListModel {
     }
 
     @Override
-    public int getSize() {
-        return starter.size();
+    public int getRowCount() {
+        return 0;
     }
 
     @Override
-    public Object getElementAt(int index) {
-        return starter.get(index);
+    public int getColumnCount() {
+        return 0;
     }
 
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return null;
+    }
+    
     public List<Starter> getList() {
         return starter;
     }
