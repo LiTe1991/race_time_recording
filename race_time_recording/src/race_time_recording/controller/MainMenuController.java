@@ -27,7 +27,7 @@ public class MainMenuController {
     public void initFrame() {
         //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         try {
-            frame.setTimeFont(configLoader.getDigitFont(200));
+            frame.setTimeFont(configLoader.getDigitFont(250));
             frame.setRoundFont(configLoader.getDigitFont(48));
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR: Font nicht gefunden");
