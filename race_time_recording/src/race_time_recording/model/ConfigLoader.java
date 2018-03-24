@@ -24,7 +24,9 @@ public class ConfigLoader {
 
     private static ConfigLoader INSTANCE;
     private final static String STARTER_URL = "src/race_time_recording/config/starter.txt";
+    private final static String FONT_URL = "src/race_time_recording/config/digital-7.ttf";
 
+    private FontManager fontManager;
     private ArrayList<String> listOfStarters;
     private long penaltyTimePylone;
     private long penaltyTimeGate;
@@ -33,9 +35,9 @@ public class ConfigLoader {
         listOfStarters = new ArrayList<>();
         penaltyTimePylone = 1000L;
         penaltyTimeGate = 2000L;
+        this.fontManager = new FontManager();
 
         BufferedReader bufReader = null;
-
         try {
             bufReader = new BufferedReader(new FileReader(STARTER_URL));
             String line = bufReader.readLine();
@@ -86,5 +88,37 @@ public class ConfigLoader {
      */
     public long getPenaltyTimeGate() {
         return penaltyTimeGate;
+    }
+
+    /**
+     * Liefert die "DigitFont" in vorgegebener Größe
+     *
+     * @param size
+     * @return Font
+     * @throws FileNotFoundException
+     */
+    public Font getDigitFont(int size) throws FileNotFoundException {
+        Font font = fontManager.getFont(new FileInputStream(new File(FONT_URL)), size);
+        return font;
+    }
+
+    /**
+     *
+     * @return ArrayList of Starters from Config
+     * @throws IOException
+     */
+    public ArrayList<String> loadStarter() throws IOException {
+        BufferedReader bufReader = new BufferedReader(new FileReader(STARTER_URL));
+        ArrayList<String> listOfLines = new ArrayList<>();
+        String line = bufReader.readLine();
+
+        while (line != null) {
+            listOfLines.add(line);
+            line = bufReader.readLine();
+        }
+
+        bufReader.close();
+
+        return listOfLines;
     }
 }

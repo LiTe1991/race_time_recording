@@ -26,12 +26,12 @@ public class MainMenuController {
 
     public void initFrame() {
         //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        /*try {
+        try {
             frame.setTimeFont(configLoader.getDigitFont(200));
             frame.setRoundFont(configLoader.getDigitFont(48));
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR: Font nicht gefunden");
-        }*/
+        }
         frame.setStarterTableModel(new StarterTableModel());
         frame.initFrame();
         frame.setVisible(true);

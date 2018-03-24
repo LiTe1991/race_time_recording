@@ -5,6 +5,8 @@
  */
 package race_time_recording.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -16,32 +18,49 @@ import javax.swing.table.AbstractTableModel;
 public class StarterTableModel extends AbstractTableModel {
 
     private List<Starter> starter = new LinkedList<>();
+    private String[] header = {"Name", "Zeit"};
 
     public StarterTableModel() {
-        /*try {
+        try {
             ConfigLoader configLoader = new ConfigLoader();
             ArrayList<String> list = configLoader.loadStarter();
+            int i = 0;
             for (String l : list) {
-                starter.add(new Starter(0, l));
+                Starter s = new Starter(i, l);
+                ArrayList<Long> times = new ArrayList();
+                times.add(System.currentTimeMillis());
+                times.add(System.currentTimeMillis());
+                times.add(System.currentTimeMillis());
+                s.setTimes(times);
+                starter.add(s);
+                i++;
             }
+            
         } catch (IOException ex) {
             System.out.println("ERROR: Starter laden fehlgeschlagen!");
-        }*/
+        }
     }
 
     @Override
     public int getRowCount() {
-        return 0;
+        return starter.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 0;
+        return 2;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+        if(columnIndex>0)
+            return starter.get(rowIndex).getFormattedTime(1);
+        return starter.get(rowIndex).getName();
+    }
+
+    @Override
+    public String getColumnName(int col) {
+        return header[col];
     }
     
     public List<Starter> getList() {
