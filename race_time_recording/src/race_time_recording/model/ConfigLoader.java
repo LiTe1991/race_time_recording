@@ -23,16 +23,20 @@ import java.util.logging.Logger;
 public class ConfigLoader {
 
     private static ConfigLoader INSTANCE;
-    
+
     private final static String STARTER_URL = "src/race_time_recording/config/config.properties";
     private final static String KEY_ROUNDS = "roundCount";
     private final static String KEY_PYLONE = "pylonenTime";
     private final static String KEY_GATE = "gateTime";
     private final static String KEY_STARTER = "starter";
+    private final static String KEY_RENNTYPS = "rennTyps";
 
     private Properties properties;
+    private boolean isRace;
 
     public ConfigLoader() {
+        isRace = true;
+
         properties = new Properties();
         BufferedInputStream inputStream = null;
 
@@ -183,5 +187,35 @@ public class ConfigLoader {
         tempStarterList = tempStarterList + ',' + starter;
 
         properties.setProperty(KEY_STARTER, tempStarterList);
+    }
+
+    /**
+     * Liefert eine Liste mit den verschiedenen Renntypen zurück
+     *
+     * @return List
+     */
+    public List<String> getRennTyps() {
+        String tempRennTyps = properties.getProperty(KEY_RENNTYPS);
+
+        return Arrays.asList(tempRennTyps.split(","));
+    }
+
+    /**
+     * Liefert zurück ob es ein Rennen ist oder Geschicklichkeit
+     *
+     * @return boolean
+     */
+    public boolean isIsRace() {
+        return isRace;
+    }
+
+    /**
+     * Setzt ein Rennen oder Geschicklichkeit, Rennen = true und Geschlichkeit =
+     * false
+     *
+     * @param isRace Rennen oder Geschicklichkeit als boolean
+     */
+    public void setIsRace(boolean isRace) {
+        this.isRace = isRace;
     }
 }

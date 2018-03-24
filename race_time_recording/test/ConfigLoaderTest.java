@@ -55,7 +55,24 @@ public class ConfigLoaderTest {
     }
     
     @Test
-    public void EtestConfigLoaderSave() {
+    public void EtestConfigLoaderIsRace() {
+        boolean temp = ConfigLoader.getInstance().isIsRace();
+        
+        assertTrue(temp);
+        
+        System.out.println("Rennen ja?: " + temp);
+        
+        ConfigLoader.getInstance().setIsRace(false);
+        
+        temp = ConfigLoader.getInstance().isIsRace();
+        
+        assertFalse(temp);
+        
+        System.out.println("Rennen ja?: " + temp);
+    }
+    
+    @Test
+    public void FtestConfigLoaderSave() {
         ConfigLoader.getInstance().setRounds(5);
         ConfigLoader.getInstance().saveConfig();
         
@@ -64,5 +81,27 @@ public class ConfigLoaderTest {
         System.out.println("Anzahl neuer Runden: " + temp);
         
         assertEquals(temp, 5);
+        
+        ConfigLoader.getInstance().setRounds(3);
+        ConfigLoader.getInstance().saveConfig();
+    }
+    
+    @Test
+    public void GtestConfigLoaderRennTyps() {
+        List<String> temp = ConfigLoader.getInstance().getRennTyps();
+        
+        assertTrue(!temp.isEmpty());
+        assertTrue(temp.size() == 3);
+        
+        temp.forEach(typ -> {System.out.println("Renntyp: " + typ);});
+    }
+    
+    @Test
+    public void HtestConfigLoaderIsRace2() {
+        boolean temp = ConfigLoader.getInstance().isIsRace();
+        
+        assertTrue(temp);
+        
+        System.out.println("Rennen wieder ja?: " + temp);
     }
 }
