@@ -6,7 +6,8 @@
 package race_time_recording;
 
 import race_time_recording.controller.MainMenuController;
-import race_time_recording.view.MainMenuFrame;
+import race_time_recording.controller.SkillController;
+import race_time_recording.controller.RaceController;
 
 /**
  *

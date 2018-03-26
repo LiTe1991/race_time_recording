@@ -9,19 +9,19 @@ import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import race_time_recording.model.ConfigLoader;
 import race_time_recording.model.StarterTableModel;
-import race_time_recording.view.MainMenuFrame;
+import race_time_recording.view.RaceFrame;
 
 /**
  *
  * @author LiTeM
  */
-public class MainMenuController {
+public class RaceController {
 
-    private final MainMenuFrame frame;
+    private final RaceFrame frame;
     private final ConfigLoader configLoader;
 
-    public MainMenuController() {
-        this.frame = new MainMenuFrame();
+    public RaceController() {
+        this.frame = new RaceFrame();
         this.configLoader = new ConfigLoader();
     }
 

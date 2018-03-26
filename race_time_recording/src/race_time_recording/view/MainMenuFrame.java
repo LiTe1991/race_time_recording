@@ -7,6 +7,7 @@ package race_time_recording.view;
 
 import java.awt.Font;
 import javax.swing.DefaultListModel;
+import race_time_recording.controller.InitialSettingsController;
 import race_time_recording.model.StarterTableModel;
 
 /**
@@ -14,15 +15,15 @@ import race_time_recording.model.StarterTableModel;
  * @author LiTeM
  */
 public class MainMenuFrame extends javax.swing.JFrame {
-    
+
     private StarterTableModel starterTableModel;
-    private Font timeFont,roundFont;
-    
+    private Font timeFont, roundFont;
+
     /**
      * Creates new form MainMenuFrame
      */
     public MainMenuFrame() {
-        
+
     }
 
     /**
@@ -34,165 +35,145 @@ public class MainMenuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        pyloneButton = new javax.swing.JButton();
-        torButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        time = new javax.swing.JLabel();
-        lap = new javax.swing.JLabel();
-        timeLabel = new javax.swing.JLabel();
-        lapLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        geschicklichkeitButton = new javax.swing.JButton();
+        ackerlaufButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        kartslalomButton = new javax.swing.JButton();
+        loadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Race Time Recording");
-        setPreferredSize(new java.awt.Dimension(1025, 800));
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(900, 350));
+        setMinimumSize(new java.awt.Dimension(900, 350));
+        setPreferredSize(new java.awt.Dimension(940, 350));
+        setResizable(false);
         getContentPane().setLayout(new java.awt.BorderLayout(5, 5));
-
-        jButton4.setText("jButton4");
-        getContentPane().add(jButton4, java.awt.BorderLayout.PAGE_END);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        pyloneButton.setLabel("Pylone (+3s)");
-        pyloneButton.addActionListener(new java.awt.event.ActionListener() {
+        geschicklichkeitButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        geschicklichkeitButton.setText("Geschicklichkeit");
+        geschicklichkeitButton.setToolTipText("");
+        geschicklichkeitButton.setActionCommand("<html><center>Neues</center><br><center>Rennen</center></html>");
+        geschicklichkeitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pyloneButtonActionPerformed(evt);
+                geschicklichkeitButtonActionPerformed(evt);
             }
         });
 
-        torButton.setText("Tor (+5s)");
-        torButton.addActionListener(new java.awt.event.ActionListener() {
+        ackerlaufButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        ackerlaufButton.setText("Ackerlauf");
+        ackerlaufButton.setToolTipText("");
+        ackerlaufButton.setActionCommand("<html><center>Neues</center><br><center>Rennen</center></html>");
+        ackerlaufButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                torButtonActionPerformed(evt);
+                ackerlaufButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Rennen abbrechen");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("Welcher Typ soll gestartet werden?");
 
-        time.setFont(getTimeFont());
-        time.setText("00:28:15");
+        kartslalomButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        kartslalomButton.setText("Kartslalom");
+        kartslalomButton.setToolTipText("");
+        kartslalomButton.setActionCommand("<html><center>Neues</center><br><center>Rennen</center></html>");
+        kartslalomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kartslalomButtonActionPerformed(evt);
+            }
+        });
 
-        lap.setFont(getRoundFont());
-        lap.setText("1 / 3");
-
-        timeLabel.setText("Aktuelle Zeit");
-
-        lapLabel.setText("Runde");
-
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTable1.setModel(starterTableModel);
-        jTable1.setDragEnabled(true);
-        jTable1.setDropMode(javax.swing.DropMode.ON);
-        jTable1.setRowHeight(20);
-        jScrollPane1.setViewportView(jTable1);
+        loadButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        loadButton.setText("Bestehendes Rennen laden");
+        loadButton.setToolTipText("");
+        loadButton.setActionCommand("<html><center>Neues</center><br><center>Rennen</center></html>");
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(timeLabel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(time, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(pyloneButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(torButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(lap, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lapLabel))
-                                        .addGap(207, 207, 207)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 213, Short.MAX_VALUE))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(loadButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(ackerlaufButton, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(kartslalomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(geschicklichkeitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(timeLabel)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ackerlaufButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kartslalomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(geschicklichkeitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lapLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lap, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(pyloneButton)
-                                    .addComponent(torButton)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 6, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jButton3)
-                .addGap(39, 39, 39))
+                .addComponent(loadButton)
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void torButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_torButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_torButtonActionPerformed
+    private void geschicklichkeitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geschicklichkeitButtonActionPerformed
+        changeFrame("Geschicklichkeit");
+    }//GEN-LAST:event_geschicklichkeitButtonActionPerformed
 
-    private void pyloneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pyloneButtonActionPerformed
+    private void ackerlaufButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackerlaufButtonActionPerformed
+        changeFrame("Acker");
+    }//GEN-LAST:event_ackerlaufButtonActionPerformed
+
+    private void kartslalomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kartslalomButtonActionPerformed
+        changeFrame("Kart");
+    }//GEN-LAST:event_kartslalomButtonActionPerformed
+
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pyloneButtonActionPerformed
+    }//GEN-LAST:event_loadButtonActionPerformed
+
+    public void changeFrame(String raceType) {
+        InitialSettingsController initialSettingsController = new InitialSettingsController(raceType);
+        initialSettingsController.initFrame();
+        this.dispose();
+    }
 
     public void setStarterList(String list) {
         DefaultListModel demoList = new DefaultListModel();
         demoList.addElement(list);
         //starterList2.setModel(demoList);
     }
-    
-    public void initFrame(){
+
+    public void initFrame() {
         initComponents();
     }
-    
-    public void setTimeFont(Font digitFont){
+
+    public void setTimeFont(Font digitFont) {
         this.timeFont = digitFont;
     }
-    
-    public Font getTimeFont(){
-       return timeFont;
+
+    public Font getTimeFont() {
+        return timeFont;
     }
-    
+
     public void setRoundFont(Font roundFont) {
         this.roundFont = roundFont;
     }
@@ -201,25 +182,16 @@ public class MainMenuFrame extends javax.swing.JFrame {
         return roundFont;
     }
 
-    public void setStarterTableModel(StarterTableModel starterTableModel){
+    public void setStarterTableModel(StarterTableModel starterTableModel) {
         this.starterTableModel = starterTableModel;
-    } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton ackerlaufButton;
+    private javax.swing.JButton geschicklichkeitButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lap;
-    private javax.swing.JLabel lapLabel;
-    private javax.swing.JButton pyloneButton;
-    private javax.swing.JLabel time;
-    private javax.swing.JLabel timeLabel;
-    private javax.swing.JButton torButton;
+    private javax.swing.JButton kartslalomButton;
+    private javax.swing.JButton loadButton;
     // End of variables declaration//GEN-END:variables
 }

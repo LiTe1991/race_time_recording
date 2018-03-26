@@ -9,20 +9,22 @@ import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import race_time_recording.model.ConfigLoader;
 import race_time_recording.model.StarterTableModel;
-import race_time_recording.view.MainMenuFrame;
+import race_time_recording.view.InitialSettingsFrame;
 
 /**
  *
  * @author LiTeM
  */
-public class MainMenuController {
+public class InitialSettingsController {
 
-    private final MainMenuFrame frame;
+    private final InitialSettingsFrame frame;
     private final ConfigLoader configLoader;
+    private String raceType;
 
-    public MainMenuController() {
-        this.frame = new MainMenuFrame();
+    public InitialSettingsController(String raceType) {
+        this.frame = new InitialSettingsFrame();
         this.configLoader = new ConfigLoader();
+        this.raceType = raceType;
     }
 
     public void initFrame() {
@@ -33,6 +35,7 @@ public class MainMenuController {
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR: Font nicht gefunden");
         }
+        frame.setSettingType(raceType);
         frame.setStarterTableModel(new StarterTableModel());
         frame.setSize(new Dimension(100, 200));
         frame.initFrame();
