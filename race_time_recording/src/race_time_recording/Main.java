@@ -6,7 +6,8 @@
 package race_time_recording;
 
 import race_time_recording.controller.MainMenuController;
-import race_time_recording.view.MainMenuFrame;
+import race_time_recording.controller.SkillController;
+import race_time_recording.controller.RaceController;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainMenuController mainMenuController = new MainMenuController(new MainMenuFrame());
+        MainMenuController mainMenuController = new MainMenuController();
         mainMenuController.initFrame();
     }
 }
