@@ -8,6 +8,7 @@ package race_time_recording.view;
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import race_time_recording.controller.InitialSettingsController;
+import race_time_recording.controller.MainMenuController;
 import race_time_recording.model.StarterTableModel;
 
 /**
@@ -18,12 +19,14 @@ public class MainMenuFrame extends javax.swing.JFrame {
 
     private StarterTableModel starterTableModel;
     private Font timeFont, roundFont;
+    private final MainMenuController controller;
 
     /**
      * Creates new form MainMenuFrame
+     * @param controller
      */
-    public MainMenuFrame() {
-
+    public MainMenuFrame(MainMenuController controller) {
+        this.controller = controller;
     }
 
     /**
@@ -135,26 +138,21 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void geschicklichkeitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geschicklichkeitButtonActionPerformed
-        changeFrame("Geschicklichkeit");
+        controller.changeFrame("geschicklichkeit");
     }//GEN-LAST:event_geschicklichkeitButtonActionPerformed
 
     private void ackerlaufButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackerlaufButtonActionPerformed
-        changeFrame("Acker");
+        controller.changeFrame("acker");
     }//GEN-LAST:event_ackerlaufButtonActionPerformed
 
     private void kartslalomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kartslalomButtonActionPerformed
-        changeFrame("Kart");
+        controller.changeFrame("kart");
     }//GEN-LAST:event_kartslalomButtonActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loadButtonActionPerformed
 
-    public void changeFrame(String raceType) {
-        InitialSettingsController initialSettingsController = new InitialSettingsController(raceType);
-        initialSettingsController.initFrame();
-        this.dispose();
-    }
 
     public void setStarterList(String list) {
         DefaultListModel demoList = new DefaultListModel();

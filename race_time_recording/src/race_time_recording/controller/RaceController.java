@@ -21,7 +21,7 @@ public class RaceController {
     private final ConfigLoader configLoader;
 
     public RaceController() {
-        this.frame = new RaceFrame();
+        this.frame = new RaceFrame(this);
         this.configLoader = new ConfigLoader();
     }
 

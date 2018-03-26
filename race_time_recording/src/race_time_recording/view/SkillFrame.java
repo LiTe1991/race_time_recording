@@ -8,6 +8,7 @@ package race_time_recording.view;
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import race_time_recording.controller.MainMenuController;
+import race_time_recording.controller.SkillController;
 import race_time_recording.model.StarterTableModel;
 
 /**
@@ -18,12 +19,13 @@ public class SkillFrame extends javax.swing.JFrame {
 
     private StarterTableModel starterTableModel;
     private Font timeFont, roundFont;
+    private final SkillController controller;
 
     /**
      * Creates new form MainMenuFrame
      */
-    public SkillFrame() {
-
+    public SkillFrame(SkillController controller) {
+        this.controller = controller;
     }
 
     /**

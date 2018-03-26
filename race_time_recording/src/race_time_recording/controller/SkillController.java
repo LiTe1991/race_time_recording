@@ -21,7 +21,7 @@ public class SkillController {
     private final ConfigLoader configLoader;
 
     public SkillController() {
-        this.frame = new SkillFrame();
+        this.frame = new SkillFrame(this);
         this.configLoader = new ConfigLoader();
     }
 

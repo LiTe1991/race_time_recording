@@ -21,7 +21,7 @@ public class MainMenuController {
     private final ConfigLoader configLoader;
 
     public MainMenuController() {
-        this.frame = new MainMenuFrame();
+        this.frame = new MainMenuFrame(this);
         this.configLoader = new ConfigLoader();
     }
 
@@ -39,4 +39,9 @@ public class MainMenuController {
         frame.setVisible(true);
     }
 
+    public void changeFrame(String raceType) {
+        InitialSettingsController initialSettingsController = new InitialSettingsController(raceType);
+        initialSettingsController.initFrame();
+        frame.dispose();
+    }
 }

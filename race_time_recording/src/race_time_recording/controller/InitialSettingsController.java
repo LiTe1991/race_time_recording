@@ -22,7 +22,7 @@ public class InitialSettingsController {
     private String raceType;
 
     public InitialSettingsController(String raceType) {
-        this.frame = new InitialSettingsFrame();
+        this.frame = new InitialSettingsFrame(this);
         this.configLoader = new ConfigLoader();
         this.raceType = raceType;
     }
@@ -35,6 +35,8 @@ public class InitialSettingsController {
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR: Font nicht gefunden");
         }
+        System.out.println(configLoader.getPenaltyTimeGate());
+        System.out.println(configLoader.getPenaltyTimePylone());
         frame.setSettingType(raceType);
         frame.setStarterTableModel(new StarterTableModel());
         frame.setSize(new Dimension(100, 200));
