@@ -6,13 +6,15 @@
 package race_time_recording.model;
 
 import java.awt.Font;
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,35 +25,32 @@ import java.util.logging.Logger;
 public class ConfigLoader {
 
     private static ConfigLoader INSTANCE;
-    private final static String STARTER_URL = "src/race_time_recording/config/starter.txt";
-    private final static String FONT_URL = "src/race_time_recording/config/digital-7.ttf";
 
-    private FontManager fontManager;
-    private ArrayList<String> listOfStarters;
-    private long penaltyTimePylone;
-    private long penaltyTimeGate;
+    private final static String FONT_URL = "src/race_time_recording/config/digital-7.ttf";
+    private final static String STARTER_URL = "src/race_time_recording/config/config.properties";
+    private final static String KEY_ROUNDS = "roundCount";
+    private final static String KEY_PYLONE = "pylonenTime";
+    private final static String KEY_GATE = "gateTime";
+    private final static String KEY_STARTER = "starter";
+    private final static String KEY_RENNTYPS = "rennTyps";
+
+    private Properties properties;
+    private boolean isRace;
 
     public ConfigLoader() {
-        listOfStarters = new ArrayList<>();
-        penaltyTimePylone = 1000L;
-        penaltyTimeGate = 2000L;
-        this.fontManager = new FontManager();
+        isRace = true;
 
-        BufferedReader bufReader = null;
+        properties = new Properties();
+        BufferedInputStream inputStream = null;
         try {
-            bufReader = new BufferedReader(new FileReader(STARTER_URL));
-            String line = bufReader.readLine();
-
-            while (line != null) {
-                listOfStarters.add(line);
-                line = bufReader.readLine();
-            }
+            inputStream = new BufferedInputStream(new FileInputStream(new File(STARTER_URL)));
+            properties.load(inputStream);
         } catch (IOException ex) {
             Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (bufReader != null) {
+            if (inputStream != null) {
                 try {
-                    bufReader.close();
+                    inputStream.close();
                 } catch (IOException ex) {
                     Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -73,12 +72,66 @@ public class ConfigLoader {
     }
 
     /**
+     * Sollte wirklich nur zum Schluss aufgerufen werden, wenn alle gewünschten
+     * Änderungen durchgeführt wurden
+     */
+    public void saveConfig() {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File(STARTER_URL));
+
+            properties.store(fos, "Store the new Config");
+            properties.clear();
+
+            INSTANCE = null;
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    /**
+     * Liefert die Anzahl der Standardrunden zurück
+     *
+     * @return int
+     */
+    public int getRounds() {
+        return Integer.valueOf(properties.getProperty(KEY_ROUNDS));
+    }
+
+    /**
+     * Setzt die Standardanzahl an Runden, um die Änderungen dauerhaft zu machen
+     * muss die Methode saveConfig() aufgerufen werden
+     *
+     * @param rounds Die Anzahl an Runden als int
+     */
+    public void setRounds(int rounds) {
+        properties.setProperty(KEY_ROUNDS, String.valueOf(rounds));
+    }
+
+    /**
      * Liefert die Strafzeit für eine einzelne Pylone zurück
      *
      * @return long
      */
     public long getPenaltyTimePylone() {
-        return penaltyTimePylone;
+        return Long.valueOf(properties.getProperty(KEY_PYLONE));
+    }
+
+    /**
+     * Setzt die standardmäßige Strafzeit für eine Pylone
+     *
+     * @param time Die gewünchte Strafzeit als Long
+     */
+    public void setPenaltyTimePylone(long time) {
+        properties.setProperty(KEY_PYLONE, String.valueOf(time));
     }
 
     /**
@@ -87,7 +140,85 @@ public class ConfigLoader {
      * @return long
      */
     public long getPenaltyTimeGate() {
-        return penaltyTimeGate;
+        return Long.valueOf(properties.getProperty(KEY_GATE));
+    }
+
+    /**
+     * Setzt die standardmäßige Strafzeit für ein Tor
+     *
+     * @param time Die gewünschte Strafzeit als Long
+     */
+    public void setPenaltyTimeGate(long time) {
+        properties.setProperty(KEY_GATE, String.valueOf(time));
+    }
+
+    /**
+     * Liefert eine Liste mit den Startern zurück
+     *
+     * @return List
+     */
+    public List<String> getStarterList() {
+        String tempStarter = properties.getProperty(KEY_STARTER);
+
+        return Arrays.asList(tempStarter.split(","));
+    }
+
+    /**
+     * Setzt die komplette Starterliste
+     *
+     * @param starter Die Namen der Starter für die Starterliste
+     */
+    public void setStarterList(List<String> starter) {
+        String tempStarterList = "";
+
+        for (String s : starter) {
+            tempStarterList = tempStarterList + ',' + s;
+        }
+
+        properties.setProperty(KEY_STARTER, tempStarterList);
+    }
+
+    /**
+     * Fügt einen Starter zu der bestehenden Liste hinzu
+     *
+     * @param starter Der Startername als String
+     */
+    public void addStarterToList(String starter) {
+        String tempStarterList = properties.getProperty(KEY_STARTER);
+
+        tempStarterList = tempStarterList + ',' + starter;
+
+        properties.setProperty(KEY_STARTER, tempStarterList);
+    }
+
+    /**
+     * Liefert eine Liste mit den verschiedenen Renntypen zurück
+     *
+     * @return List
+     */
+    public List<String> getRennTyps() {
+        String tempRennTyps = properties.getProperty(KEY_RENNTYPS);
+
+        return Arrays.asList(tempRennTyps.split(","));
+    }
+
+    /**
+     * Liefert zurück ob es ein Rennen ist oder Geschicklichkeit
+     *
+     * @return boolean
+     */
+    public boolean isIsRace() {
+        return isRace;
+    }
+
+    /**
+     * Setzt ein Rennen oder Geschicklichkeit, Rennen = true und Geschlichkeit =
+     * false
+     *
+     * @param isRace Rennen oder Geschicklichkeit als boolean
+     */
+    public void setIsRace(boolean isRace) {
+        this.isRace = isRace;
     }
 
     /**
@@ -98,27 +229,13 @@ public class ConfigLoader {
      * @throws FileNotFoundException
      */
     public Font getDigitFont(int size) throws FileNotFoundException {
-        Font font = fontManager.getFont(new FileInputStream(new File(FONT_URL)), size);
-        return font;
-    }
-
-    /**
-     *
-     * @return ArrayList of Starters from Config
-     * @throws IOException
-     */
-    public ArrayList<String> loadStarter() throws IOException {
-        BufferedReader bufReader = new BufferedReader(new FileReader(STARTER_URL));
-        ArrayList<String> listOfLines = new ArrayList<>();
-        String line = bufReader.readLine();
-
-        while (line != null) {
-            listOfLines.add(line);
-            line = bufReader.readLine();
+        try {
+            FileInputStream file = new FileInputStream(new File(FONT_URL));
+            return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(Font.PLAIN, size);
+        } catch (Exception ex) {
+            System.out.println("Font konnte nicht geladen werden.");
         }
-
-        bufReader.close();
-
-        return listOfLines;
+        return new Font("SansSerif", Font.PLAIN, size);
     }
+
 }

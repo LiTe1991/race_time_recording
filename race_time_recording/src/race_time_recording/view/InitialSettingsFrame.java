@@ -321,7 +321,7 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
     }
 
     public void start() {
-        if (raceType == "Geschicklichkeit") {
+        if (raceType == "geschicklichkeit") {
             SkillController controller = new SkillController();
             controller.initFrame();
         } else {

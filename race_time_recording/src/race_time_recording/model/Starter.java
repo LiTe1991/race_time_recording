@@ -65,7 +65,7 @@ public class Starter {
      */
     public String getEvaluatedTime() {       
         long tempPenaltyTimePylone = ConfigLoader.getInstance().getPenaltyTimePylone();
-        long tempPenaltyTimeGate = ConfigLoader.getInstance().getPenaltyTimeGate();
+        //long tempPenaltyTimeGate = ConfigLoader.getInstance().getPenaltyTimeGate();
         
         //long evaluatedTime -> times.forEach((Long time) -> {evaluatedTime += time});
 

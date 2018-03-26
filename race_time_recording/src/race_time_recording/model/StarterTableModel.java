@@ -21,23 +21,18 @@ public class StarterTableModel extends AbstractTableModel {
     private String[] header = {"Name", "Zeit"};
 
     public StarterTableModel() {
-        try {
-            ConfigLoader configLoader = new ConfigLoader();
-            ArrayList<String> list = configLoader.loadStarter();
-            int i = 0;
-            for (String l : list) {
-                Starter s = new Starter(i, l);
-                ArrayList<Long> times = new ArrayList();
-                times.add(System.currentTimeMillis());
-                times.add(System.currentTimeMillis());
-                times.add(System.currentTimeMillis());
-                s.setTimes(times);
-                starter.add(s);
-                i++;
-            }
-            
-        } catch (IOException ex) {
-            System.out.println("ERROR: Starter laden fehlgeschlagen!");
+        ConfigLoader configLoader = new ConfigLoader();
+        List<String> list = configLoader.getStarterList();
+        int i = 0;
+        for (String l : list) {
+            Starter s = new Starter(i, l);
+            ArrayList<Long> times = new ArrayList();
+            times.add(System.currentTimeMillis());
+            times.add(System.currentTimeMillis());
+            times.add(System.currentTimeMillis());
+            s.setTimes(times);
+            starter.add(s);
+            i++;
         }
     }
 
@@ -53,8 +48,9 @@ public class StarterTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if(columnIndex>0)
+        if (columnIndex > 0) {
             return starter.get(rowIndex).getFormattedTime(1);
+        }
         return starter.get(rowIndex).getName();
     }
 
@@ -62,7 +58,7 @@ public class StarterTableModel extends AbstractTableModel {
     public String getColumnName(int col) {
         return header[col];
     }
-    
+
     public List<Starter> getList() {
         return starter;
     }
