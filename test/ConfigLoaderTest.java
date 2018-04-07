@@ -46,7 +46,7 @@ public class ConfigLoaderTest {
     
     @Test
     public void DtestConfigLoaderStarter() {
-        List<String> temp = ConfigLoader.getInstance().getStarterList();
+        List<String> temp = ConfigLoader.getInstance().getStarternameList();
         
         assertTrue(!temp.isEmpty());
         assertTrue(temp.size() == 5);

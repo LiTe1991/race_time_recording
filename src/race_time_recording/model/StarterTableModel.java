@@ -22,7 +22,7 @@ public class StarterTableModel extends AbstractTableModel {
 
     public StarterTableModel() {
         ConfigLoader configLoader = new ConfigLoader();
-        List<String> list = configLoader.getStarterList();
+        List<String> list = configLoader.getStarternameList();
         int i = 0;
         for (String l : list) {
             Starter s = new Starter(i, l);

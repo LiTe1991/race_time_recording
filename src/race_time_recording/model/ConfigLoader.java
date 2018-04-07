@@ -12,9 +12,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,23 +40,33 @@ public class ConfigLoader {
     private Properties permProperties;
     private Properties tempProperties;
     private boolean isRace;
-
+    private ArrayList<Starter> starter;
+    
     public ConfigLoader() {
         isRace = true;
-
+        starter = new ArrayList<>();
+        
         permProperties = new Properties();
         tempProperties = new Properties();
-        BufferedInputStream inputStream = null;
+        BufferedInputStream inputStream = null, inputStream2 = null;
         try {
             inputStream = new BufferedInputStream(new FileInputStream(new File(CONFIG_URL)));
             permProperties.load(inputStream);
-            tempProperties.load(inputStream);
+            inputStream2 = new BufferedInputStream(new FileInputStream(new File(CONFIG_URL)));
+            tempProperties.load(inputStream2);
         } catch (IOException ex) {
             Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (inputStream != null) {
                 try {
                     inputStream.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (inputStream2 != null) {
+                try {
+                    inputStream2.close();
                 } catch (IOException ex) {
                     Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -169,36 +182,41 @@ public class ConfigLoader {
      *
      * @return List
      */
-    public List<String> getStarterList() {
+    public List<String> getStarternameList() {
         String tempStarter = tempProperties.getProperty(KEY_STARTER);
 
         return Arrays.asList(tempStarter.split(","));
     }
 
+    public List<Starter> getStarterList(List<String> startername, boolean... random) {
+        ArrayList numberList = new ArrayList();
+        for(int i = 0; i < startername.size(); i++) {
+            numberList.add(i + 1);
+        }
+        
+        Random rd = new Random();
+        startername.forEach(st -> {
+            int pos = (int) numberList.remove(rd.nextInt(numberList.size() - 1));
+            
+            starter.add(pos - 1, new Starter(pos, st));
+        });
+        
+        return starter;
+    }
+    
     /**
      * Setzt die komplette Starterliste
      *
      * @param starter Die Namen der Starter für die Starterliste
      */
-    public void setStarterList(List<String> starter) {
+    public void setStarternameList(List<String> starter) {
         String tempStarterList = "";
 
+        Collections.sort(starter);
+        
         for (String s : starter) {
-            tempStarterList = tempStarterList + ',' + s;
+            tempStarterList += ',' + s;
         }
-
-        tempProperties.setProperty(KEY_STARTER, tempStarterList);
-    }
-
-    /**
-     * Fügt einen Starter zu der bestehenden Liste hinzu
-     *
-     * @param starter Der Startername als String
-     */
-    public void addStarterToList(String starter) {
-        String tempStarterList = tempProperties.getProperty(KEY_STARTER);
-
-        tempStarterList = tempStarterList + ',' + starter;
 
         tempProperties.setProperty(KEY_STARTER, tempStarterList);
     }
