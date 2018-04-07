@@ -27,24 +27,27 @@ public class ConfigLoader {
     private static ConfigLoader INSTANCE;
 
     private final static String FONT_URL = "src/race_time_recording/config/digital-7.ttf";
-    private final static String STARTER_URL = "src/race_time_recording/config/config.properties";
+    private final static String CONFIG_URL = "src/race_time_recording/config/config.properties";
     private final static String KEY_ROUNDS = "roundCount";
     private final static String KEY_PYLONE = "pylonenTime";
     private final static String KEY_GATE = "gateTime";
     private final static String KEY_STARTER = "starter";
     private final static String KEY_RENNTYPS = "rennTyps";
 
-    private Properties properties;
+    private Properties permProperties;
+    private Properties tempProperties;
     private boolean isRace;
 
     public ConfigLoader() {
         isRace = true;
 
-        properties = new Properties();
+        permProperties = new Properties();
+        tempProperties = new Properties();
         BufferedInputStream inputStream = null;
         try {
-            inputStream = new BufferedInputStream(new FileInputStream(new File(STARTER_URL)));
-            properties.load(inputStream);
+            inputStream = new BufferedInputStream(new FileInputStream(new File(CONFIG_URL)));
+            permProperties.load(inputStream);
+            tempProperties.load(inputStream);
         } catch (IOException ex) {
             Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -78,12 +81,9 @@ public class ConfigLoader {
     public void saveConfig() {
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(new File(STARTER_URL));
+            fos = new FileOutputStream(new File(CONFIG_URL));
 
-            properties.store(fos, "Store the new Config");
-            properties.clear();
-
-            INSTANCE = null;
+            permProperties.store(fos, "Store the new Config");
         } catch (IOException ex) {
             Logger.getLogger(ConfigLoader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -103,7 +103,7 @@ public class ConfigLoader {
      * @return int
      */
     public int getRounds() {
-        return Integer.valueOf(properties.getProperty(KEY_ROUNDS));
+        return Integer.valueOf(tempProperties.getProperty(KEY_ROUNDS));
     }
 
     /**
@@ -111,27 +111,35 @@ public class ConfigLoader {
      * muss die Methode saveConfig() aufgerufen werden
      *
      * @param rounds Die Anzahl an Runden als int
+     * @param perm
      */
-    public void setRounds(int rounds) {
-        properties.setProperty(KEY_ROUNDS, String.valueOf(rounds));
+    public void setRounds(int rounds, boolean... perm) {
+        tempProperties.setProperty(KEY_ROUNDS, String.valueOf(rounds));
+        
+        if(perm != null && perm[0])
+            permProperties.setProperty(KEY_ROUNDS, String.valueOf(rounds));
     }
 
     /**
      * Liefert die Strafzeit für eine einzelne Pylone zurück
      *
-     * @return long
+     * @return int
      */
-    public long getPenaltyTimePylone() {
-        return Long.valueOf(properties.getProperty(KEY_PYLONE));
+    public int getPenaltyTimePylone() {
+        return Integer.valueOf(tempProperties.getProperty(KEY_PYLONE));
     }
 
     /**
      * Setzt die standardmäßige Strafzeit für eine Pylone
      *
-     * @param time Die gewünchte Strafzeit als Long
+     * @param time Die gewünchte Strafzeit als Sekunden
+     * @param perm
      */
-    public void setPenaltyTimePylone(long time) {
-        properties.setProperty(KEY_PYLONE, String.valueOf(time));
+    public void setPenaltyTimePylone(int time, boolean... perm) {
+        tempProperties.setProperty(KEY_PYLONE, String.valueOf(time));
+        
+        if(perm != null && perm[0])
+            permProperties.setProperty(KEY_PYLONE, String.valueOf(time));
     }
 
     /**
@@ -139,17 +147,21 @@ public class ConfigLoader {
      *
      * @return long
      */
-    public long getPenaltyTimeGate() {
-        return Long.valueOf(properties.getProperty(KEY_GATE));
+    public int getPenaltyTimeGate() {
+        return Integer.valueOf(tempProperties.getProperty(KEY_GATE));
     }
 
     /**
      * Setzt die standardmäßige Strafzeit für ein Tor
      *
-     * @param time Die gewünschte Strafzeit als Long
+     * @param time Die gewünschte Strafzeit als Sekunden
+     * @param perm 
      */
-    public void setPenaltyTimeGate(long time) {
-        properties.setProperty(KEY_GATE, String.valueOf(time));
+    public void setPenaltyTimeGate(int time, boolean... perm) {
+        tempProperties.setProperty(KEY_GATE, String.valueOf(time));
+        
+        if(perm != null && perm[0])
+            permProperties.setProperty(KEY_GATE, String.valueOf(time));
     }
 
     /**
@@ -158,7 +170,7 @@ public class ConfigLoader {
      * @return List
      */
     public List<String> getStarterList() {
-        String tempStarter = properties.getProperty(KEY_STARTER);
+        String tempStarter = tempProperties.getProperty(KEY_STARTER);
 
         return Arrays.asList(tempStarter.split(","));
     }
@@ -175,7 +187,7 @@ public class ConfigLoader {
             tempStarterList = tempStarterList + ',' + s;
         }
 
-        properties.setProperty(KEY_STARTER, tempStarterList);
+        tempProperties.setProperty(KEY_STARTER, tempStarterList);
     }
 
     /**
@@ -184,11 +196,11 @@ public class ConfigLoader {
      * @param starter Der Startername als String
      */
     public void addStarterToList(String starter) {
-        String tempStarterList = properties.getProperty(KEY_STARTER);
+        String tempStarterList = tempProperties.getProperty(KEY_STARTER);
 
         tempStarterList = tempStarterList + ',' + starter;
 
-        properties.setProperty(KEY_STARTER, tempStarterList);
+        tempProperties.setProperty(KEY_STARTER, tempStarterList);
     }
 
     /**
@@ -197,7 +209,7 @@ public class ConfigLoader {
      * @return List
      */
     public List<String> getRennTyps() {
-        String tempRennTyps = properties.getProperty(KEY_RENNTYPS);
+        String tempRennTyps = tempProperties.getProperty(KEY_RENNTYPS);
 
         return Arrays.asList(tempRennTyps.split(","));
     }
