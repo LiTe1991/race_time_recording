@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+//import org.apache.commons.csv.CSVFormat;
+//import org.apache.commons.csv.CSVPrinter;
 
 /**
  *
@@ -26,7 +26,7 @@ public class CSVManager {
 
     private ArrayList<Object> csv_header;
     private FileWriter fileWriter;
-    private CSVPrinter csvPrinter;
+   // private CSVPrinter csvPrinter;
 
     public CSVManager(int rounds) {
         csv_header = new ArrayList<>();
@@ -49,17 +49,17 @@ public class CSVManager {
      */
     public boolean exportCSV(List<Starter> list) {
         try {
-            CSVFormat csvFormat = CSVFormat.DEFAULT.withRecordSeparator(LINE_SERPARATOR);
+        //    CSVFormat csvFormat = CSVFormat.DEFAULT.withRecordSeparator(LINE_SERPARATOR);
             fileWriter = new FileWriter(new File(FILE_NAME));
-            csvPrinter = new CSVPrinter(fileWriter, csvFormat);
+        //    csvPrinter = new CSVPrinter(fileWriter, csvFormat);
 
-            csvPrinter.printRecord(csv_header.toArray());
+         //   csvPrinter.printRecord(csv_header.toArray());
             for (Starter starter : list) {
                 List<String> _tempList = new ArrayList();
                 _tempList.add(starter.getName());
                 //_tempList.add(String.valueOf(starter.getNumberRounds()));
                 
-                csvPrinter.printRecord(_tempList);
+           //     csvPrinter.printRecord(_tempList);
             }
         } catch (IOException ex) {
             Logger.getLogger(CSVManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,9 +71,9 @@ public class CSVManager {
                     fileWriter.flush();
                     fileWriter.close();
                 }
-                if (csvPrinter != null) {
-                    csvPrinter.close();
-                }
+             //   if (csvPrinter != null) {
+             //       csvPrinter.close();
+             //   }
             } catch (IOException ex) {
                 Logger.getLogger(CSVManager.class.getName()).log(Level.SEVERE, null, ex);
 

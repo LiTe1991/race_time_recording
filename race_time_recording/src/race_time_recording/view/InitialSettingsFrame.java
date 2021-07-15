@@ -6,11 +6,8 @@
 package race_time_recording.view;
 
 import java.awt.Font;
-import javax.swing.DefaultListModel;
 import race_time_recording.controller.InitialSettingsController;
 import race_time_recording.controller.MainMenuController;
-import race_time_recording.controller.RaceController;
-import race_time_recording.controller.SkillController;
 import race_time_recording.model.StarterTableModel;
 
 /**
@@ -19,9 +16,6 @@ import race_time_recording.model.StarterTableModel;
  */
 public class InitialSettingsFrame extends javax.swing.JFrame {
 
-    private StarterTableModel starterTableModel;
-    private Font timeFont, roundFont;
-    private String raceType;
     private final InitialSettingsController controller;
 
     /**
@@ -45,12 +39,9 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
         choice2 = new java.awt.Choice();
         startRaceButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
         addStarter = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -86,22 +77,21 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Starter"));
 
-        jCheckBox1.setText("Lars");
-
-        jCheckBox5.setText("Rüdiger");
-
-        jCheckBox2.setText("Vadim");
-
-        jCheckBox4.setText("Max");
-
-        jCheckBox3.setText("Chris");
-
         addStarter.setText("Starter hinzufügen");
         addStarter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addStarterActionPerformed(evt);
             }
         });
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Hier", "kommen", "die", "Starter", "hin" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setCellRenderer(controller.getStarterRenderer());
+        jList1.setSelectionModel(controller.getSelectionModel());
+        jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,45 +101,28 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jCheckBox4))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(addStarter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(183, 183, 183))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addStarter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox3)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox5)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addStarter)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextField1.setText(getRaceName());
+        jTextField1.setText(controller.getRaceName());
 
         jLabel2.setText("Name:");
 
         jLabel4.setText("Datum:");
 
-        jTextField2.setText(getRaceDate());
+        jTextField2.setText(controller.getRaceDate());
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -163,6 +136,12 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
         jLabel5.setText("Strafsekunden Pylone:");
 
         jLabel6.setText("Strafsekunden Tor:");
+
+        jSpinner1.setValue(controller.getRoundCount());
+
+        jSpinner2.setValue(controller.getPyloneTime());
+
+        jSpinner3.setValue(controller.getGateTime());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -224,8 +203,8 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(startRaceButton))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(675, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(631, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +226,7 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(startRaceButton)))
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -273,7 +252,7 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startRaceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startRaceButtonActionPerformed
-        start();
+        controller.startRace();
     }//GEN-LAST:event_startRaceButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -290,80 +269,22 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
       System.out.println("Neuen Starter hinzufügen");
     }//GEN-LAST:event_addStarterActionPerformed
 
-    public void setStarterList(String list) {
-        DefaultListModel demoList = new DefaultListModel();
-        demoList.addElement(list);
-        //starterList2.setModel(demoList);
-    }
-
-    public String getRaceName(){
-        return "RaceName";
-    }
-    
-    public String getRaceDate(){
-        return "RaceDate";
-    }
     
     public void initFrame() {
         initComponents();
-    }
-
-    public void setTimeFont(Font digitFont) {
-        this.timeFont = digitFont;
-    }
-
-    public Font getTimeFont() {
-        return timeFont;
-    }
-
-    public String getSettingType() {
-        return raceType;
-    }
-
-    public void start() {
-        if (raceType == "geschicklichkeit") {
-            SkillController controller = new SkillController();
-            controller.initFrame();
-        } else {
-            RaceController controller = new RaceController();
-            controller.initFrame();
-        }
-        
-        this.dispose();
-
-    }
-
-    public void setSettingType(String raceType) {
-        this.raceType = raceType;
-    }
-
-    public void setRoundFont(Font roundFont) {
-        this.roundFont = roundFont;
-    }
-
-    public Font getRoundFont() {
-        return roundFont;
-    }
-
-    public void setStarterTableModel(StarterTableModel starterTableModel) {
-        this.starterTableModel = starterTableModel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addStarter;
     private java.awt.Choice choice1;
     private java.awt.Choice choice2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -371,6 +292,7 @@ public class InitialSettingsFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;

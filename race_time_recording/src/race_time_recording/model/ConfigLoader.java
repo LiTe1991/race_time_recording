@@ -157,7 +157,7 @@ public class ConfigLoader {
      *
      * @return List
      */
-    public List<String> getStarterList() {
+    public List<String> getStarterList(boolean... random) {
         String tempStarter = properties.getProperty(KEY_STARTER);
 
         return Arrays.asList(tempStarter.split(","));
